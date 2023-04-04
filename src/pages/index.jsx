@@ -6,9 +6,12 @@ import {
   Heading,
   Img,
   Link,
+  Box,
   SimpleGrid,
   Text,
 } from "@chakra-ui/react";
+import LazyLoad from "react-lazyload";
+import timeSrc from "@/assets/icons/time.svg";
 import { useEffect, useState } from "react";
 import { getNewsByDate } from "@/services";
 import { useDate } from "@/hooks";
@@ -82,27 +85,65 @@ export default function Home() {
             <SimpleGrid minChildWidth="320px" spacing="40px">
               {parsedHTML?.map((article) => (
                 <GridItem w="100%" key={article.title}>
-                  <Flex
-                    as={Link}
-                    href={article.link}
-                    key={article.title}
-                    direction="column"
-                    _hover={{ textDecoration: "none" }}
+                  <Box
+                    overflow="hidden"
+                    borderRadius="12px"
+                    border="1px solid"
+                    borderColor="border.100"
+                    minW="280px"
+                    mb={{ base: 10, sm: 0 }}
                   >
-                    <Img
-                      src={article.img}
-                      alt="img"
+                    <LazyLoad h="184px" once>
+                      <Img
+                        alt={article.title}
+                        cursor="pointer"
+                        objectFit="cover"
+                        borderTopRadius="12px"
+                        width="100%"
+                        bgColor="border.100"
+                        h="184px"
+                        src={article.img}
+                      />
+                    </LazyLoad>
+                    <Flex
                       h="200px"
-                      objectFit="cover"
-                    />
-                    <Heading fontSize="2xl" noOfLines={2}>
-                      {article.title}
-                    </Heading>
-                    <Text fontSize="md" noOfLines={3}>
-                      {article.description}
-                    </Text>
-                    <Text fontSize="sm">{article.date}</Text>
-                  </Flex>
+                      px={5}
+                      pb={5}
+                      pt={4}
+                      flexDirection="column"
+                      justifyContent="space-between"
+                      bg="white"
+                    >
+                      <Flex direction="column">
+                        <Heading
+                          as="h2"
+                          noOfLines={2}
+                          key={`card-title-${article.title}`}
+                          color="gray.800"
+                          fontSize="2xl"
+                        >
+                          {article.title}
+                        </Heading>
+                        <Text
+                          key={`card-tagline-${article.description}`}
+                          noOfLines={3}
+                          mt="2"
+                          mb="2"
+                          fontSize="md"
+                          color="gray.700"
+                          lineHeight="18px"
+                        >
+                          {article.description}
+                        </Text>
+                      </Flex>
+                      <Flex>
+                        <Img alt={article.title} width={4} src={timeSrc} />
+                        <Text ml="2" fontSize="sm">
+                          {article.date}
+                        </Text>
+                      </Flex>
+                    </Flex>
+                  </Box>
                 </GridItem>
               ))}
             </SimpleGrid>
