@@ -4,7 +4,6 @@ import {
   Flex,
   GridItem,
   Heading,
-  Img,
   Link,
   Box,
   SimpleGrid,
@@ -20,6 +19,7 @@ import { RotatingTriangles } from "react-loader-spinner";
 import { useTranslation } from "@/contexts/TranslationContext";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
+import { Navbar, Img } from "@/components";
 
 export default function Home() {
   const [startDate, setStartDate] = useState(new Date());
@@ -34,6 +34,7 @@ export default function Home() {
   }, [language, startDate]);
   return (
     <>
+      <Navbar />
       <Head>
         <title>News</title>
       </Head>
