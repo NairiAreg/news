@@ -1,3 +1,15 @@
 {
-  "Hello": "Привет"
+  "Hello": "Привет",
+  "language@en@short": "АН",
+  "language@en@shortFlag": "🇺🇸 АН",
+  "language@en@long": "Английский",
+  "language@en@longFlag": "🇺🇸 Английский",
+  "language@ru@short": "РУ",
+  "language@ru@shortFlag": "🇷🇺 РУ",
+  "language@ru@long": "Русский",
+  "language@ru@longFlag": "🇷🇺 Русский",
+  "language@hy@short": "АР",
+  "language@hy@shortFlag": "🇦🇲 АР",
+  "language@hy@long": "Армянский",
+  "language@hy@longFlag": "🇦🇲 Армянский"
 }

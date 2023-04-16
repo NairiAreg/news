@@ -1,3 +1,15 @@
 {
-  "Hello": "Hello"
+  "Hello": "Hello",
+  "language@en@short": "EN",
+  "language@en@shortFlag": "🇺🇸 EN",
+  "language@en@long": "English",
+  "language@en@longFlag": "🇺🇸 English",
+  "language@ru@short": "RU",
+  "language@ru@shortFlag": "🇷🇺 RU",
+  "language@ru@long": "Russian",
+  "language@ru@longFlag": "🇷🇺 Russian",
+  "language@hy@short": "HY",
+  "language@hy@shortFlag": "🇦🇲 HY",
+  "language@hy@long": "Armenian",
+  "language@hy@longFlag": "🇦🇲 Armenian"
 }
