@@ -1,10 +1,8 @@
 import {
-  Button,
   Container,
   Flex,
   GridItem,
   Heading,
-  Link,
   Box,
   SimpleGrid,
   Text,
@@ -22,11 +20,10 @@ import "react-datepicker/dist/react-datepicker.css";
 import { Navbar, Img } from "@/components";
 
 export default function Home() {
-  const [startDate, setStartDate] = useState(new Date());
-
-  const { t, setLanguage, language } = useTranslation();
+  const { t, language } = useTranslation();
   const { getStructuredDate } = useDate();
   const [parsedHTML, setParsedHTML] = useState();
+  const [startDate, setStartDate] = useState(new Date());
   useEffect(() => {
     getNewsByDate({ ...getStructuredDate(startDate), language }).then((data) =>
       setParsedHTML(data)
@@ -36,40 +33,14 @@ export default function Home() {
     <>
       <Navbar />
       <Head>
-        <title>News</title>
+        <title>{t("news")}</title>
       </Head>
       <main>
         <Container maxW="container.xl">
-          <Button
-            colorScheme="blue"
-            onClick={() => {
-              setLanguage("hy");
-            }}
-          >
-            Arm
-          </Button>
-          <Button
-            colorScheme="blue"
-            onClick={() => {
-              setLanguage("en");
-            }}
-          >
-            Eng
-          </Button>
-          <Button
-            colorScheme="blue"
-            onClick={() => {
-              setLanguage("ru");
-            }}
-          >
-            Rus
-          </Button>
           <DatePicker
             selected={startDate}
             onChange={(date) => setStartDate(date)}
           />
-
-          <Heading>{t("Hello")}</Heading>
           {!parsedHTML ? (
             <Flex justifyContent="center" w="full" mt={40}>
               <RotatingTriangles
