@@ -10,7 +10,7 @@ import {
 import LazyLoad from "react-lazyload";
 import timeSrc from "@/assets/icons/time.svg";
 import { useEffect, useState } from "react";
-import { getNewsByDate, getNewsByDateArmenPress } from "@/services";
+import { getNewsByDateNewsAm, getNewsByDateArmenPress } from "@/services";
 import { useDate } from "@/hooks";
 import Head from "next/head";
 import { RotatingTriangles } from "react-loader-spinner";
@@ -18,6 +18,7 @@ import { useTranslation } from "@/contexts/TranslationContext";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { Navbar, Img } from "@/components";
+import getAllNewsByDate from "@/services/allNews";
 
 export default function Home() {
   const { t, language } = useTranslation();
@@ -28,12 +29,15 @@ export default function Home() {
     if (!language) {
       return;
     }
-    getNewsByDate({ ...getStructuredDate(startDate), language }).then((data) =>
-      setParsedHTML(data)
+    getNewsByDateNewsAm({ ...getStructuredDate(startDate), language }).then(
+      (data) => setParsedHTML(data)
     );
-    console.log("💩");
     getNewsByDateArmenPress({ ...getStructuredDate(startDate), language }).then(
       (data) => console.log("🟢", data)
+    );
+
+    getAllNewsByDate({ ...getStructuredDate(startDate), language }).then(
+      (data) => console.log("💩", data)
     );
   }, [language, startDate]);
   return (
