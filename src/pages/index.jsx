@@ -10,7 +10,7 @@ import {
 import LazyLoad from "react-lazyload";
 import timeSrc from "@/assets/icons/time.svg";
 import { useEffect, useState } from "react";
-import { getNewsByDate } from "@/services";
+import { getNewsByDate, getNewsByDateArmenPress } from "@/services";
 import { useDate } from "@/hooks";
 import Head from "next/head";
 import { RotatingTriangles } from "react-loader-spinner";
@@ -25,8 +25,15 @@ export default function Home() {
   const [parsedHTML, setParsedHTML] = useState();
   const [startDate, setStartDate] = useState(new Date());
   useEffect(() => {
+    if (!language) {
+      return;
+    }
     getNewsByDate({ ...getStructuredDate(startDate), language }).then((data) =>
       setParsedHTML(data)
+    );
+    console.log("💩");
+    getNewsByDateArmenPress({ ...getStructuredDate(startDate), language }).then(
+      (data) => console.log("🟢", data)
     );
   }, [language, startDate]);
   return (
