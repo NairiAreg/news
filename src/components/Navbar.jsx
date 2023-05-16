@@ -18,18 +18,23 @@ import logo from "@/assets/images/logo.webp";
 import Img from "./Img";
 import { useTranslation } from "@/contexts/TranslationContext";
 import { LANGUAGES } from "@/constants/constants";
+import Head from "next/head";
 
-const LINKS = ["Dashboard", "Projects", "Team"];
+const LINKS = [
+  { title: "News.am", to: "/newsAm" },
+  { title: "ArmenPress.am", to: "/armenPressAm" },
+  { title: "Team" },
+];
 
-const NavLink = ({ children }) => (
+const NavLink = ({ children, to }) => (
   <Link
     px={2}
     py={1}
-    rounded={"md"}
+    rounded="md"
     _hover={{
       textDecoration: "none",
     }}
-    href={"#"}
+    href={to}
   >
     {children}
   </Link>
@@ -41,7 +46,7 @@ export default function Navbar() {
 
   return (
     <Box bg="gray.100" px={4}>
-      <Flex h={16} alignItems={"center"} justifyContent={"space-between"}>
+      <Flex h={16} alignItems="center" justifyContent="space-between">
         <IconButton
           size={"md"}
           icon={isOpen ? <CloseIcon /> : <HamburgerIcon />}
@@ -50,10 +55,14 @@ export default function Navbar() {
           onClick={isOpen ? onClose : onOpen}
         />
         <HStack spacing={8} alignItems="center" h="full">
-          <Img src={logo} h="full" />
+          <Link href="/" h="full">
+            <Img src={logo} h="full" />
+          </Link>
           <HStack as={"nav"} spacing={4} display={{ base: "none", md: "flex" }}>
-            {LINKS.map((link) => (
-              <NavLink key={link}>{link}</NavLink>
+            {LINKS.map(({ title, to }) => (
+              <NavLink to={to} key={title}>
+                {title}
+              </NavLink>
             ))}
           </HStack>
         </HStack>
@@ -80,6 +89,9 @@ export default function Navbar() {
           </Stack>
         </Box>
       )}
+      <Head>
+        <title>{t("news")}</title>
+      </Head>
     </Box>
   );
 }

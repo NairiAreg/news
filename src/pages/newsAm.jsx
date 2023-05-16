@@ -2,39 +2,35 @@ import { Container } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
 import { getNewsByDateNewsAm, getNewsByDateArmenPress } from "@/services";
 import { useDate } from "@/hooks";
+import Head from "next/head";
 import { useTranslation } from "@/contexts/TranslationContext";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { Navbar, CardList } from "@/components";
 
-import getAllNewsByDate from "@/services/allNews";
-
-export default function Home() {
-  const { language } = useTranslation();
+export default function NewsAm() {
+  const { t, language } = useTranslation();
   const { getStructuredDate } = useDate();
   const [parsedHTML, setParsedHTML] = useState();
   const [startDate, setStartDate] = useState(new Date());
-
   useEffect(() => {
     if (!language) {
       return;
     }
-    getNewsByDateNewsAm({ ...getStructuredDate(startDate), language }).then(
-      (data) => console.log("🔴 news.am", data)
-    );
     getNewsByDateArmenPress({ ...getStructuredDate(startDate), language }).then(
       (data) => console.log("🔵 armenpress.am", data)
     );
 
-    getAllNewsByDate({
-      ...getStructuredDate(startDate),
-      language,
-      setData: setParsedHTML,
-    })
+    getNewsByDateNewsAm({ ...getStructuredDate(startDate), language }).then(
+      (data) => setParsedHTML(data)
+    );
   }, [language, startDate]);
   return (
     <>
       <Navbar />
+      <Head>
+        <title>{t("news")}</title>
+      </Head>
       <main>
         <Container maxW="container.xl">
           <DatePicker

@@ -9,6 +9,7 @@ const getAllNewsByDate = async (props) => {
   let result = [];
   (await allNews).forEach((news) => (result = [...result, ...news]));
   result.sort((a, b) => new Date(b.date) - new Date(a.date));
+  props.setData(result);
   return result;
 };
 export default getAllNewsByDate;
