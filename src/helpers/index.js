@@ -31,15 +31,7 @@ const dateFormatter = new Intl.DateTimeFormat("en-us", {
 
 //! NewsAm
 export const newsAmDateNormalizer = (date) =>
-  dateFormatter.format(
-    new Date(
-      ...date
-        .replaceAll("+04", ",")
-        .replaceAll("-", ",")
-        .replaceAll(":", ",")
-        .split(",")
-    )
-  );
+  dateFormatter.format(new Date(date.replaceAll("+04", "T")));
 
 export const scrapNewsAm = (data) =>
   [...data.querySelectorAll("article.article-item")].map((article) => ({
@@ -54,6 +46,7 @@ export const scrapNewsAm = (data) =>
       article.querySelector("time").getAttribute("datetime")
     ),
     description: article.querySelector(".text").innerText,
+    source: "news.am",
   }));
 
 // ! ArmenPress Data
@@ -71,4 +64,5 @@ export const scrapArmenPress = (data) =>
         .getAttribute("content")
     ),
     description: article.querySelector("p.newsbycattitle > a").innerText,
+    source: "armenpress.am",
   }));

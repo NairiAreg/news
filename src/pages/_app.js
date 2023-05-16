@@ -1,7 +1,7 @@
 import { TranslationProvider } from "../contexts/TranslationContext";
-import { ChakraProvider } from "@chakra-ui/react";
 import Head from "next/head";
 import "./translate";
+import ChakraProvider from "@/contexts/ChakraProvider";
 
 export default function App({ Component, pageProps }) {
   return (

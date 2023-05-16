@@ -2,10 +2,13 @@ import getNewsByDateNewsAm from "./newsAm";
 import getNewsByDateArmenPress from "./armenPress";
 
 const getAllNewsByDate = async (props) => {
-    
-  return Promise.all([
+  const allNews = Promise.all([
     getNewsByDateNewsAm(props),
     getNewsByDateArmenPress(props),
   ]);
+  let result = [];
+  (await allNews).forEach((news) => (result = [...result, ...news]));
+  result.sort((a, b) => new Date(b.date) - new Date(a.date));
+  return result;
 };
 export default getAllNewsByDate;
