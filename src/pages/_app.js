@@ -2,6 +2,7 @@ import { TranslationProvider } from "../contexts/TranslationContext";
 import Head from "next/head";
 import "./translate";
 import ChakraProvider from "@/contexts/ChakraProvider";
+import "./styles.scss";
 
 export default function App({ Component, pageProps }) {
   return (

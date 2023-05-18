@@ -1,18 +1,26 @@
-import { Container } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
 import { getNewsByDateNewsAm, getNewsByDateArmenPress } from "@/services";
 import { useDate } from "@/hooks";
 import { useTranslation } from "@/contexts/TranslationContext";
-import DatePicker from "react-datepicker";
+// import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
-import { Navbar, CardList } from "@/components";
-
+import { CardList, DatePicker, Img, MainLayout } from "@/components";
+import calendar from "@/assets/icons/calendar.svg";
 import getAllNewsByDate from "@/services/allNews";
+import { Box, InputGroup, InputLeftElement } from "@chakra-ui/react";
 
 export default function Home() {
   const { language } = useTranslation();
   const { getStructuredDate } = useDate();
   const [parsedHTML, setParsedHTML] = useState();
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    if (parsedHTML) {
+      setIsLoading(false);
+    }
+  }, [parsedHTML]);
+
   const [startDate, setStartDate] = useState(new Date());
 
   useEffect(() => {
@@ -29,21 +37,38 @@ export default function Home() {
     getAllNewsByDate({
       ...getStructuredDate(startDate),
       language,
-      setData: setParsedHTML,
-    })
+    }).then((data) => {
+      setParsedHTML(data);
+      setIsLoading(false);
+    });
   }, [language, startDate]);
+
+  console.log("😅", parsedHTML);
+
   return (
-    <>
-      <Navbar />
-      <main>
-        <Container maxW="container.xl">
+    <MainLayout>
+      <Box position="relative" zIndex={1}>
+        <InputGroup>
+          <InputLeftElement
+            zIndex={4}
+            py="2"
+            px="10px"
+            pointerEvents="none"
+            color="gray.700"
+          >
+            <Img src={calendar} />
+          </InputLeftElement>
           <DatePicker
-            selected={startDate}
-            onChange={(date) => setStartDate(date)}
+            date={startDate}
+            onChange={(date) => {
+              setStartDate(date);
+              setIsLoading(true);
+            }}
+            maxDate={new Date()}
           />
-          <CardList data={parsedHTML} />
-        </Container>
-      </main>
-    </>
+        </InputGroup>
+      </Box>
+      <CardList data={parsedHTML} isLoading={isLoading} />
+    </MainLayout>
   );
 }

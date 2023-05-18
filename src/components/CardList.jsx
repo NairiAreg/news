@@ -3,10 +3,10 @@ import { Flex, GridItem, SimpleGrid } from "@chakra-ui/react";
 import { Card } from "@/components";
 import { RotatingTriangles } from "react-loader-spinner";
 
-export default function CardList({ data }) {
+export default function CardList({ data, isLoading }) {
   return (
     <>
-      {!data ? (
+      {isLoading || !data ? (
         <Flex justifyContent="center" w="full" mt={40}>
           <RotatingTriangles
             visible={true}

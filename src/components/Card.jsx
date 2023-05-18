@@ -1,14 +1,9 @@
 import React from "react";
-import {
-  Box,
-  Flex,
-  Heading,
-  // Tag,
-  Text,
-} from "@chakra-ui/react";
+import { Box, Flex, Heading, Text } from "@chakra-ui/react";
 import LazyLoad from "react-lazyload";
 import timeSrc from "@/assets/icons/time.svg";
 import { Img, Tag } from "@/components";
+import { loader } from "@/assets/images/loader.gif";
 
 export default function Card({ source, title, img, description, date }) {
   return (
@@ -22,7 +17,7 @@ export default function Card({ source, title, img, description, date }) {
       position="relative"
     >
       <Tag source={source} />
-      <LazyLoad h="184px" once>
+      <LazyLoad height="184px" once placeholder={loader}>
         <Img
           alt={title}
           cursor="pointer"
