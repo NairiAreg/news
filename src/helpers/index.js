@@ -31,7 +31,7 @@ const dateFormatter = new Intl.DateTimeFormat("en-us", {
 
 //! NewsAm
 export const newsAmDateNormalizer = (date) =>
-  dateFormatter.format(new Date(date.replaceAll("+04", "T")));
+  dateFormatter.format(new Date(date.replace("+04", "T")));
 
 export const scrapNewsAm = (data) =>
   [...data.querySelectorAll("article.article-item")].map((article) => ({
