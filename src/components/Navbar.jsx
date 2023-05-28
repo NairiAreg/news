@@ -11,6 +11,9 @@ import {
   MenuItem,
   useDisclosure,
   Stack,
+  Input,
+  InputGroup,
+  InputRightElement,
 } from "@chakra-ui/react";
 import { HamburgerIcon, CloseIcon } from "@chakra-ui/icons";
 
@@ -19,6 +22,10 @@ import Img from "./Img";
 import { useTranslation } from "@/contexts/TranslationContext";
 import { LANGUAGES } from "@/constants/constants";
 import Head from "next/head";
+import { useState } from "react";
+import { useRef } from "react";
+import { useEffect } from "react";
+// import useState from "react"
 
 const LINKS = [
   { title: "News.am", to: "/newsAm" },
@@ -40,9 +47,49 @@ const NavLink = ({ children, to }) => (
   </Link>
 );
 
-export default function Navbar() {
+export default function Navbar({ data, setParsedHTML }) {
   const { t, setLanguage, language } = useTranslation();
   const { isOpen, onOpen, onClose } = useDisclosure();
+
+  const [originalData, setOriginalData] = useState([]);
+  const [value, setValue] = useState("");
+
+  useEffect(() => {
+    setOriginalData(data);
+    setParsedHTML(data)
+  }, [data]);
+
+  const handleSearch = () => {
+    const newData = originalData.filter((el) => {
+      return (
+        el.title.toLowerCase().includes(value.toLowerCase()) ||
+        el.description.toLowerCase().includes(value.toLowerCase())
+      );
+    });
+    setParsedHTML(newData);
+    // setValue('')
+    if (newData.length > 0) {
+      // setParsedHTML(originalData)
+      
+    }
+  };
+  
+  const handleInputChange = (ev) => {
+    setValue(ev.target.value);
+  };
+  
+  
+  // useEffect(() => {
+  //   const newData = data?.filter((el) => {
+  //     return (
+  //       el.title.toLowerCase().includes(value.toLowerCase()) ||
+  //       el.description.toLowerCase().includes(value.toLowerCase())
+  //     );
+  //   });
+  //   setParsedHTML(newData);
+  
+  // }, [originalData, value]);
+
 
   return (
     <Box bg="gray.100" px={4}>
@@ -66,6 +113,27 @@ export default function Navbar() {
             ))}
           </HStack>
         </HStack>
+
+        <Stack>
+          <InputGroup>
+            <Input
+              bgColor="white"
+              placeholder="Search"
+              size="md"
+              variant="outline"
+              pr="4.5rem"
+              width="20rem"
+              value={value}
+              onChange={handleInputChange}
+            />
+            <InputRightElement width="4.5rem">
+              <Button onClick={handleSearch} size="sm" h="1.75rem">
+                Search
+              </Button>
+            </InputRightElement>
+          </InputGroup>
+        </Stack>
+
         <Menu>
           <MenuButton as={Button} cursor="pointer" minW={0}>
             {t(`language@${language}@shortFlag`)}

@@ -27,12 +27,14 @@ export default function Home() {
     if (!language) {
       return;
     }
-    getNewsByDateNewsAm({ ...getStructuredDate(startDate), language }).then(
-      (data) => console.log("🔴 news.am", data)
-    );
-    getNewsByDateArmenPress({ ...getStructuredDate(startDate), language }).then(
-      (data) => console.log("🔵 armenpress.am", data)
-    );
+    getNewsByDateNewsAm({
+      ...getStructuredDate(startDate),
+      language,
+    }).then((data) => console.log("🔴 news.am", data));
+    getNewsByDateArmenPress({
+      ...getStructuredDate(startDate),
+      language,
+    }).then((data) => console.log("🔵 armenpress.am", data));
 
     getAllNewsByDate({
       ...getStructuredDate(startDate),
@@ -46,7 +48,7 @@ export default function Home() {
   console.log("😅", parsedHTML);
 
   return (
-    <MainLayout>
+    <MainLayout data = {parsedHTML} setParsedHTML = {setParsedHTML}>
       <Box position="relative" zIndex={1}>
         <InputGroup>
           <InputLeftElement
