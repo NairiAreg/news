@@ -12,28 +12,34 @@ export default function Home() {
   const { language } = useTranslation();
   const { getStructuredDate } = useDate();
   const [parsedHTML, setParsedHTML] = useState();
+  const [searchData, setSearchData] = useState();
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     if (parsedHTML) {
       setIsLoading(false);
     }
+    setSearchData(parsedHTML);
   }, [parsedHTML]);
 
   const [startDate, setStartDate] = useState(new Date());
+
+  console.log("🟢", searchData);
 
   useEffect(() => {
     if (!language) {
       return;
     }
-    getNewsByDateNewsAm({ ...getStructuredDate(startDate), language })
-      .then
-      // (data) => console.log("🔴 news.am", data)
-      ();
-    getNewsByDateArmenPress({ ...getStructuredDate(startDate), language })
-      .then
-      // (data) => console.log("🔵 armenpress.am", data)
-      ();
+    getNewsByDateNewsAm({
+      ...getStructuredDate(startDate),
+      language,
+    });
+    // .then((data) => console.log("🔴 news.am", data));
+    getNewsByDateArmenPress({
+      ...getStructuredDate(startDate),
+      language,
+    });
+    // .then((data) => console.log("🔵 armenpress.am", data));
 
     getAllNewsByDate({
       ...getStructuredDate(startDate),
@@ -47,7 +53,7 @@ export default function Home() {
   console.log("😅", parsedHTML);
 
   return (
-    <MainLayout data={parsedHTML} setParsedHTML={setParsedHTML}>
+    <MainLayout data={parsedHTML} setData={setSearchData}>
       <Box position="relative" zIndex={1}>
         <InputGroup>
           <InputLeftElement
@@ -69,7 +75,7 @@ export default function Home() {
           />
         </InputGroup>
       </Box>
-      <CardList data={parsedHTML} isLoading={isLoading} />
+      <CardList data={searchData} isLoading={isLoading} />
     </MainLayout>
   );
 }

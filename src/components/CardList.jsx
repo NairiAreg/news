@@ -1,14 +1,21 @@
 import React, { useState } from "react";
-import { Flex, GridItem, SimpleGrid } from "@chakra-ui/react";
+import { Container, Flex, GridItem, SimpleGrid, Text } from "@chakra-ui/react";
 import { Card, Pagination } from "@/components";
 import { RotatingTriangles } from "react-loader-spinner";
+import { useTranslation } from "@/contexts/TranslationContext";
 
 export default function CardList({ data, isLoading }) {
+  const { t } = useTranslation();
   const [itemOffset, setItemOffset] = useState(0);
   const LIMIT = 10; //TODO Change to state when using filters
 
   return (
     <>
+      {!isLoading && !data?.length && (
+        <Container>
+          <Text textAlign="center">{t("noData")}</Text>
+        </Container>
+      )}
       {isLoading || !data ? (
         <Flex justifyContent="center" w="full" mt={40}>
           <RotatingTriangles

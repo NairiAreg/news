@@ -1,5 +1,6 @@
 import {
   Box,
+  Container,
   Flex,
   HStack,
   Link,
@@ -23,14 +24,10 @@ import { useTranslation } from "@/contexts/TranslationContext";
 import { LANGUAGES } from "@/constants/constants";
 import Head from "next/head";
 import { useState } from "react";
-import { useRef } from "react";
-import { useEffect } from "react";
-// import useState from "react"
 
 const LINKS = [
   { title: "News.am", to: "/newsAm" },
   { title: "ArmenPress.am", to: "/armenPressAm" },
-  { title: "Team" },
 ];
 
 const NavLink = ({ children, to, ...rest }) => (
@@ -48,84 +45,91 @@ const NavLink = ({ children, to, ...rest }) => (
   </Link>
 );
 
-export default function Navbar({ data, setParsedHTML }) {
+export default function Navbar({ data, setData }) {
   const { t, setLanguage, language } = useTranslation();
   const { isOpen, onOpen, onClose } = useDisclosure();
-
-  const [originalData, setOriginalData] = useState([]);
-  const [value, setValue] = useState("");
-
-  useEffect(() => {
-    setOriginalData(data);
-    setParsedHTML(data)
-  }, [data]);
+  const [searchValue, setSearchValue] = useState("");
 
   const handleSearch = () => {
-    const newData = originalData.filter((el) => {
-      return (
-        el.title.toLowerCase().includes(value.toLowerCase()) ||
-        el.description.toLowerCase().includes(value.toLowerCase())
-      );
-    });
-    setParsedHTML(newData);
-    // setValue('')
-    if (newData.length > 0) {
-      // setParsedHTML(originalData)
-      
-    }
-  };
-  
-  const handleInputChange = (ev) => {
-    setValue(ev.target.value);
-  };
-  
-  
-  // useEffect(() => {
-  //   const newData = data?.filter((el) => {
-  //     return (
-  //       el.title.toLowerCase().includes(value.toLowerCase()) ||
-  //       el.description.toLowerCase().includes(value.toLowerCase())
-  //     );
-  //   });
-  //   setParsedHTML(newData);
-  
-  // }, [originalData, value]);
+    const searchComponents = searchValue.split(" ");
 
+    const newData = data.filter((el) =>
+      searchComponents.every(
+        (tag) =>
+          el.title.toLowerCase().includes(tag.toLowerCase()) ||
+          el.description.toLowerCase().includes(tag.toLowerCase())
+      )
+    );
+
+    setData(newData);
+  };
 
   return (
-    <Box px={4} as="header" bg="blue.300">
-      <Flex h={16} alignItems="center" justifyContent="space-between">
-        <IconButton
-          size={"md"}
-          icon={isOpen ? <CloseIcon /> : <HamburgerIcon />}
-          aria-label={"Open Menu"}
-          display={{ md: "none" }}
-          onClick={isOpen ? onClose : onOpen}
-        />
-        <HStack spacing={8} alignItems="center" h="full">
-          <Link href="/" h="full">
-            <Img src={logo} h="full" />
-          </Link>
-          <HStack as={"nav"} spacing={4} display={{ base: "none", md: "flex" }}>
-            {LINKS.map(({ title, to }) => (
-              <NavLink to={to} key={title} color="white">
-                {title}
-              </NavLink>
-            ))}
+    <>
+      <Container maxW="container.xl" as="header" bg="blue.300">
+        <Flex h={16} alignItems="center" justifyContent="space-between">
+          <IconButton
+            size={"md"}
+            icon={isOpen ? <CloseIcon /> : <HamburgerIcon />}
+            aria-label={"Open Menu"}
+            display={{ md: "none" }}
+            onClick={isOpen ? onClose : onOpen}
+          />
+          <HStack spacing={8} alignItems="center" h="full">
+            <Link href="/" h="full">
+              <Img src={logo} h="full" />
+            </Link>
+            <HStack
+              as={"nav"}
+              spacing={4}
+              display={{ base: "none", md: "flex" }}
+            >
+              {LINKS.map(({ title, to }) => (
+                <NavLink to={to} key={title} color="white">
+                  {title}
+                </NavLink>
+              ))}
+            </HStack>
           </HStack>
-        </HStack>
 
-        <Stack>
-          <InputGroup>
+          <Menu>
+            <MenuButton as={Button} cursor="pointer" minW={0}>
+              {t(`language@${language}@shortFlag`)}
+            </MenuButton>
+            <MenuList>
+              {LANGUAGES.map((lang) => (
+                <MenuItem key={lang} onClick={() => setLanguage(lang)}>
+                  {t(`language@${lang}@longFlag`)}
+                </MenuItem>
+              ))}
+            </MenuList>
+          </Menu>
+        </Flex>
+
+        {isOpen && (
+          <Box pb={4} display={{ md: "none" }}>
+            <Stack as={"nav"} spacing={4}>
+              {LINKS.map((link) => (
+                <NavLink key={link}>{link}</NavLink>
+              ))}
+            </Stack>
+          </Box>
+        )}
+        <Head>
+          <title>{t("news")}</title>
+        </Head>
+      </Container>
+      <Container maxW="container.xl" bg="orange.300">
+        <Flex h={16} alignItems="center" justifyContent="space-between">
+          <InputGroup width="20rem">
             <Input
               bgColor="white"
               placeholder="Search"
               size="md"
               variant="outline"
               pr="4.5rem"
-              width="20rem"
-              value={value}
-              onChange={handleInputChange}
+              value={searchValue}
+              onChange={(e) => setSearchValue(e.target.value)}
             />
             <InputRightElement width="4.5rem">
               <Button onClick={handleSearch} size="sm" h="1.75rem">
@@ -133,34 +137,21 @@ export default function Navbar({ data, setParsedHTML }) {
               </Button>
             </InputRightElement>
           </InputGroup>
-        </Stack>
+        </Flex>
 
-        <Menu>
-          <MenuButton as={Button} cursor="pointer" minW={0}>
-            {t(`language@${language}@shortFlag`)}
-          </MenuButton>
-          <MenuList>
-            {LANGUAGES.map((lang) => (
-              <MenuItem key={lang} onClick={() => setLanguage(lang)}>
-                {t(`language@${lang}@longFlag`)}
-              </MenuItem>
-            ))}
-          </MenuList>
-        </Menu>
-      </Flex>
-
-      {isOpen && (
-        <Box pb={4} display={{ md: "none" }}>
-          <Stack as={"nav"} spacing={4}>
-            {LINKS.map((link) => (
-              <NavLink key={link}>{link}</NavLink>
-            ))}
-          </Stack>
-        </Box>
-      )}
-      <Head>
-        <title>{t("news")}</title>
-      </Head>
-    </Box>
+        {isOpen && (
+          <Box pb={4} display={{ md: "none" }}>
+            <Stack as={"nav"} spacing={4}>
+              {LINKS.map((link) => (
+                <NavLink key={link}>{link}</NavLink>
+              ))}
+            </Stack>
+          </Box>
+        )}
+        <Head>
+          <title>{t("news")}</title>
+        </Head>
+      </Container>
+    </>
   );
 }
