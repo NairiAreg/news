@@ -2,7 +2,6 @@ import { useEffect, useState } from "react";
 import { getNewsByDateNewsAm, getNewsByDateArmenPress } from "@/services";
 import { useDate } from "@/hooks";
 import { useTranslation } from "@/contexts/TranslationContext";
-// import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { CardList, DatePicker, Img, MainLayout } from "@/components";
 import calendar from "@/assets/icons/calendar.svg";
@@ -27,14 +26,14 @@ export default function Home() {
     if (!language) {
       return;
     }
-    getNewsByDateNewsAm({
-      ...getStructuredDate(startDate),
-      language,
-    }).then((data) => console.log("🔴 news.am", data));
-    getNewsByDateArmenPress({
-      ...getStructuredDate(startDate),
-      language,
-    }).then((data) => console.log("🔵 armenpress.am", data));
+    getNewsByDateNewsAm({ ...getStructuredDate(startDate), language })
+      .then
+      // (data) => console.log("🔴 news.am", data)
+      ();
+    getNewsByDateArmenPress({ ...getStructuredDate(startDate), language })
+      .then
+      // (data) => console.log("🔵 armenpress.am", data)
+      ();
 
     getAllNewsByDate({
       ...getStructuredDate(startDate),
@@ -48,7 +47,7 @@ export default function Home() {
   console.log("😅", parsedHTML);
 
   return (
-    <MainLayout data = {parsedHTML} setParsedHTML = {setParsedHTML}>
+    <MainLayout data={parsedHTML} setParsedHTML={setParsedHTML}>
       <Box position="relative" zIndex={1}>
         <InputGroup>
           <InputLeftElement

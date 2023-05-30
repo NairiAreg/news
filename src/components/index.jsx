@@ -5,3 +5,5 @@ export { default as CardList } from "./CardList";
 export { default as Tag } from "./Tag";
 export { default as MainLayout } from "./MainLayout";
 export { default as DatePicker } from "./DatePicker";
+export { default as Pagination } from "./Pagination";
+export { default as Footer } from "./Footer";

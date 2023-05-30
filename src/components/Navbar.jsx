@@ -33,7 +33,7 @@ const LINKS = [
   { title: "Team" },
 ];
 
-const NavLink = ({ children, to }) => (
+const NavLink = ({ children, to, ...rest }) => (
   <Link
     px={2}
     py={1}
@@ -42,6 +42,7 @@ const NavLink = ({ children, to }) => (
       textDecoration: "none",
     }}
     href={to}
+    {...rest}
   >
     {children}
   </Link>
@@ -92,7 +93,7 @@ export default function Navbar({ data, setParsedHTML }) {
 
 
   return (
-    <Box bg="gray.100" px={4}>
+    <Box px={4} as="header" bg="blue.300">
       <Flex h={16} alignItems="center" justifyContent="space-between">
         <IconButton
           size={"md"}
@@ -107,7 +108,7 @@ export default function Navbar({ data, setParsedHTML }) {
           </Link>
           <HStack as={"nav"} spacing={4} display={{ base: "none", md: "flex" }}>
             {LINKS.map(({ title, to }) => (
-              <NavLink to={to} key={title}>
+              <NavLink to={to} key={title} color="white">
                 {title}
               </NavLink>
             ))}
