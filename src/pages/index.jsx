@@ -3,10 +3,8 @@ import { getNewsByDateNewsAm, getNewsByDateArmenPress } from "@/services";
 import { useDate } from "@/hooks";
 import { useTranslation } from "@/contexts/TranslationContext";
 import "react-datepicker/dist/react-datepicker.css";
-import { CardList, DatePicker, Img, MainLayout } from "@/components";
-import calendar from "@/assets/icons/calendar.svg";
+import { CardList, MainLayout } from "@/components";
 import getAllNewsByDate from "@/services/allNews";
-import { Box, InputGroup, InputLeftElement } from "@chakra-ui/react";
 
 export default function Home() {
   const { language } = useTranslation();
@@ -53,28 +51,13 @@ export default function Home() {
   console.log("😅", parsedHTML);
 
   return (
-    <MainLayout data={parsedHTML} setData={setSearchData}>
-      <Box position="relative" zIndex={1}>
-        <InputGroup>
-          <InputLeftElement
-            zIndex={4}
-            py="2"
-            px="10px"
-            pointerEvents="none"
-            color="gray.700"
-          >
-            <Img src={calendar} />
-          </InputLeftElement>
-          <DatePicker
-            date={startDate}
-            onChange={(date) => {
-              setStartDate(date);
-              setIsLoading(true);
-            }}
-            maxDate={new Date()}
-          />
-        </InputGroup>
-      </Box>
+    <MainLayout
+      data={parsedHTML}
+      setData={setSearchData}
+      startDate={startDate}
+      setStartDate={setStartDate}
+      setIsLoading={setIsLoading}
+    >
       <CardList data={searchData} isLoading={isLoading} />
     </MainLayout>
   );

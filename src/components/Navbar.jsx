@@ -15,15 +15,17 @@ import {
   Input,
   InputGroup,
   InputRightElement,
+  InputLeftElement,
 } from "@chakra-ui/react";
 import { HamburgerIcon, CloseIcon } from "@chakra-ui/icons";
-
 import logo from "@/assets/images/logo.webp";
+import calendar from "@/assets/icons/calendar.svg";
 import Img from "./Img";
 import { useTranslation } from "@/contexts/TranslationContext";
 import { LANGUAGES } from "@/constants/constants";
 import Head from "next/head";
 import { useState } from "react";
+import { DatePicker } from ".";
 
 const LINKS = [
   { title: "News.am", to: "/newsAm" },
@@ -45,7 +47,13 @@ const NavLink = ({ children, to, ...rest }) => (
   </Link>
 );
 
-export default function Navbar({ data, setData }) {
+export default function Navbar({
+  data,
+  setData,
+  startDate,
+  setStartDate,
+  setIsLoading,
+}) {
   const { t, setLanguage, language } = useTranslation();
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [searchValue, setSearchValue] = useState("");
@@ -121,18 +129,40 @@ export default function Navbar({ data, setData }) {
       </Container>
       <Container maxW="container.xl" bg="orange.300">
         <Flex h={16} alignItems="center" justifyContent="space-between">
-          <InputGroup width="20rem">
+          <Box position="relative" zIndex={1} w="150px">
+            <InputGroup>
+              <InputLeftElement
+                zIndex={4}
+                py="2"
+                px="10px"
+                pointerEvents="none"
+                color="gray.700"
+              >
+                <Img src={calendar} />
+              </InputLeftElement>
+              <DatePicker
+                date={startDate}
+                onChange={(date) => {
+                  setStartDate(date);
+                  setIsLoading(true);
+                }}
+                maxDate={new Date()}
+                w="full"
+              />
+            </InputGroup>
+          </Box>
+          <InputGroup width="300px">
             <Input
               bgColor="white"
               placeholder="Search"
               size="md"
               variant="outline"
-              pr="4.5rem"
+              pr="72px"
               value={searchValue}
               onChange={(e) => setSearchValue(e.target.value)}
             />
-            <InputRightElement width="4.5rem">
-              <Button onClick={handleSearch} size="sm" h="1.75rem">
+            <InputRightElement w="72px">
+              <Button onClick={handleSearch} size="md">
                 Search
               </Button>
             </InputRightElement>
