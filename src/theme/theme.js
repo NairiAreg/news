@@ -87,7 +87,7 @@ const theme = extendTheme({
     },
     orange: {
       // 100: "#FEEBCB",
-      // 300: "#FC8600",
+      300: "#ffb703",
       400: "#fb8500",
     },
     // green: {

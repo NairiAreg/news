@@ -27,7 +27,7 @@ export default function ArmenPressAm() {
   }, [language, startDate]);
   return (
     <>
-      <Navbar />
+      <Navbar data={parsedHTML} setParsedHTML={setParsedHTML} />
       <Head>
         <title>{t("news")}</title>
       </Head>

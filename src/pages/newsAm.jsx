@@ -17,17 +17,19 @@ export default function NewsAm() {
     if (!language) {
       return;
     }
-    getNewsByDateArmenPress({ ...getStructuredDate(startDate), language }).then(
-      (data) => console.log("🔵 armenpress.am", data)
-    );
+    getNewsByDateArmenPress({
+      ...getStructuredDate(startDate),
+      language,
+    }).then((data) => console.log("🔵 armenpress.am", data));
 
-    getNewsByDateNewsAm({ ...getStructuredDate(startDate), language }).then(
-      (data) => setParsedHTML(data)
-    );
+    getNewsByDateNewsAm({
+      ...getStructuredDate(startDate),
+      language,
+    }).then((data) => setParsedHTML(data));
   }, [language, startDate]);
   return (
     <>
-      <Navbar />
+      <Navbar data={parsedHTML} setParsedHTML={setParsedHTML} />
       <Head>
         <title>{t("news")}</title>
       </Head>
