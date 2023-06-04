@@ -1,10 +1,13 @@
 import { useEffect, useState } from "react";
-import { getNewsByDateNewsAm, getNewsByDateArmenPress } from "@/services";
+import {
+  // getNewsByDateNewsAm,
+  // getNewsByDateArmenPress,
+  getAllNewsByDate,
+} from "@/services";
 import { useDate } from "@/hooks";
 import { useTranslation } from "@/contexts/TranslationContext";
 import "react-datepicker/dist/react-datepicker.css";
 import { CardList, MainLayout } from "@/components";
-import getAllNewsByDate from "@/services/allNews";
 
 export default function Home() {
   const { language } = useTranslation();
@@ -28,16 +31,16 @@ export default function Home() {
     if (!language) {
       return;
     }
-    getNewsByDateNewsAm({
-      ...getStructuredDate(startDate),
-      language,
-    });
-    // .then((data) => console.log("🔴 news.am", data));
-    getNewsByDateArmenPress({
-      ...getStructuredDate(startDate),
-      language,
-    });
-    // .then((data) => console.log("🔵 armenpress.am", data));
+    // getNewsByDateNewsAm({
+    //   ...getStructuredDate(startDate),
+    //   language,
+    // });
+    // // .then((data) => console.log("🔴 news.am", data));
+    // getNewsByDateArmenPress({
+    //   ...getStructuredDate(startDate),
+    //   language,
+    // });
+    // // .then((data) => console.log("🔵 armenpress.am", data));
 
     getAllNewsByDate({
       ...getStructuredDate(startDate),

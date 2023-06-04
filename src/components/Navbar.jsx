@@ -53,6 +53,7 @@ export default function Navbar({
   startDate,
   setStartDate,
   setIsLoading,
+  single,
 }) {
   const { t, setLanguage, language } = useTranslation();
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -127,61 +128,63 @@ export default function Navbar({
           <title>{t("news")}</title>
         </Head>
       </Container>
-      <Container maxW="container.xl" bg="orange.300">
-        <Flex h={16} alignItems="center" justifyContent="space-between">
-          <Box position="relative" zIndex={1} w="150px">
-            <InputGroup>
-              <InputLeftElement
-                zIndex={4}
-                py="2"
-                px="10px"
-                pointerEvents="none"
-                color="gray.700"
-              >
-                <Img src={calendar} />
-              </InputLeftElement>
-              <DatePicker
-                date={startDate}
-                onChange={(date) => {
-                  setStartDate(date);
-                  setIsLoading(true);
-                }}
-                maxDate={new Date()}
-                w="full"
+      {!single && (
+        <Container maxW="container.xl" bg="orange.300">
+          <Flex h={16} alignItems="center" justifyContent="space-between">
+            <Box position="relative" zIndex={1} w="150px">
+              <InputGroup>
+                <InputLeftElement
+                  zIndex={4}
+                  py="2"
+                  px="10px"
+                  pointerEvents="none"
+                  color="gray.700"
+                >
+                  <Img src={calendar} />
+                </InputLeftElement>
+                <DatePicker
+                  date={startDate}
+                  onChange={(date) => {
+                    setStartDate(date);
+                    setIsLoading(true);
+                  }}
+                  maxDate={new Date()}
+                  w="full"
+                />
+              </InputGroup>
+            </Box>
+            <InputGroup width="300px">
+              <Input
+                bgColor="white"
+                placeholder="Search"
+                size="md"
+                variant="outline"
+                pr="72px"
+                value={searchValue}
+                onChange={(e) => setSearchValue(e.target.value)}
               />
+              <InputRightElement w="72px">
+                <Button onClick={handleSearch} size="md">
+                  Search
+                </Button>
+              </InputRightElement>
             </InputGroup>
-          </Box>
-          <InputGroup width="300px">
-            <Input
-              bgColor="white"
-              placeholder="Search"
-              size="md"
-              variant="outline"
-              pr="72px"
-              value={searchValue}
-              onChange={(e) => setSearchValue(e.target.value)}
-            />
-            <InputRightElement w="72px">
-              <Button onClick={handleSearch} size="md">
-                Search
-              </Button>
-            </InputRightElement>
-          </InputGroup>
-        </Flex>
+          </Flex>
 
-        {isOpen && (
-          <Box pb={4} display={{ md: "none" }}>
-            <Stack as={"nav"} spacing={4}>
-              {LINKS.map((link) => (
-                <NavLink key={link}>{link}</NavLink>
-              ))}
-            </Stack>
-          </Box>
-        )}
-        <Head>
-          <title>{t("news")}</title>
-        </Head>
-      </Container>
+          {isOpen && (
+            <Box pb={4} display={{ md: "none" }}>
+              <Stack as={"nav"} spacing={4}>
+                {LINKS.map((link) => (
+                  <NavLink key={link}>{link}</NavLink>
+                ))}
+              </Stack>
+            </Box>
+          )}
+          <Head>
+            <title>{t("news")}</title>
+          </Head>
+        </Container>
+      )}
     </>
   );
 }

@@ -7,3 +7,4 @@ export { default as MainLayout } from "./MainLayout";
 export { default as DatePicker } from "./DatePicker";
 export { default as Pagination } from "./Pagination";
 export { default as Footer } from "./Footer";
+export { default as BlogAuthor } from "./BlogAuthor";

@@ -17,7 +17,7 @@ export default function CardList({ data, isLoading }) {
         </Container>
       )}
       {isLoading || !data ? (
-        <Flex justifyContent="center" w="full" mt={40}>
+        <Flex justifyContent="center" w="full" pt={40}>
           <RotatingTriangles
             visible={true}
             height="80"
@@ -30,7 +30,7 @@ export default function CardList({ data, isLoading }) {
         </Flex>
       ) : (
         <>
-          <SimpleGrid minChildWidth="320px" spacing="40px">
+          <SimpleGrid minChildWidth="320px" spacing="40px" mt={4}>
             {data?.slice(itemOffset, itemOffset + LIMIT)?.map((article) => (
               <GridItem w="100%" key={article.title}>
                 <Card {...article} />

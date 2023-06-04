@@ -8,6 +8,7 @@ export default function MainLayout({
   startDate,
   setStartDate,
   setIsLoading,
+  single,
 }) {
   return (
     <Box bg="blue.100">
@@ -17,8 +18,12 @@ export default function MainLayout({
         startDate={startDate}
         setStartDate={setStartDate}
         setIsLoading={setIsLoading}
+        single={single}
       />
-      <Container maxW="container.xl" minH="calc(100vh - 384px)">
+      <Container
+        maxW="container.xl"
+        minH={`calc(100vh - ${single ? 337 : 384}px)`}
+      >
         {children}
       </Container>
       <Footer />

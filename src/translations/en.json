@@ -15,5 +15,6 @@
   "news": "News",
   "next": "Next",
   "previous": "Previous",
-  "noData": "Nothing found, try changing filters"
+  "noData": "Nothing found, try changing filters",
+  "noPageTranslation": "This page isn't translated to"
 }
