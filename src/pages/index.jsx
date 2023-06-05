@@ -4,7 +4,7 @@ import {
   // getNewsByDateArmenPress,
   getAllNewsByDate,
 } from "@/services";
-import { useDate } from "@/hooks";
+import { useDate, useLocalStorage } from "@/hooks";
 import { useTranslation } from "@/contexts/TranslationContext";
 import "react-datepicker/dist/react-datepicker.css";
 import { CardList, MainLayout } from "@/components";
@@ -15,15 +15,23 @@ export default function Home() {
   const [parsedHTML, setParsedHTML] = useState();
   const [searchData, setSearchData] = useState();
   const [isLoading, setIsLoading] = useState(true);
+  const [startDate, setStartDate] = useState(new Date());
+  const { put, get } = useLocalStorage();
 
   useEffect(() => {
     if (parsedHTML) {
       setIsLoading(false);
     }
     setSearchData(parsedHTML);
-  }, [parsedHTML]);
 
-  const [startDate, setStartDate] = useState(new Date());
+    if (!parsedHTML || !startDate) {
+      return;
+    }
+    const cacheDate = new Date(startDate).toLocaleDateString();
+    if (!get(cacheDate) && parsedHTML) {
+      put(cacheDate, JSON.stringify(parsedHTML?.slice(10))); //TODO change 10 to LIMIT
+    }
+  }, [parsedHTML, startDate]);
 
   console.log("🟢", searchData);
 
@@ -61,7 +69,7 @@ export default function Home() {
       setStartDate={setStartDate}
       setIsLoading={setIsLoading}
     >
-      <CardList data={searchData} isLoading={isLoading} />
+      <CardList data={searchData} isLoading={isLoading} date={startDate} />
     </MainLayout>
   );
 }
