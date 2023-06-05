@@ -156,7 +156,7 @@ export default function Navbar({
             <InputGroup width="300px">
               <Input
                 bgColor="white"
-                placeholder="Search"
+                placeholder={t("search")}
                 size="md"
                 variant="outline"
                 pr="72px"
@@ -165,7 +165,7 @@ export default function Navbar({
               />
               <InputRightElement w="72px">
                 <Button onClick={handleSearch} size="md">
-                  Search
+                  {t("search")}
                 </Button>
               </InputRightElement>
             </InputGroup>

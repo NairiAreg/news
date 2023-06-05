@@ -16,5 +16,6 @@
   "next": "Next",
   "previous": "Previous",
   "noData": "Nothing found, try changing filters",
-  "noPageTranslation": "This page isn't translated to"
+  "noPageTranslation": "This page isn't translated to",
+  "search": "Search"
 }
