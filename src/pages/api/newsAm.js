@@ -1,11 +1,10 @@
 const axios = require("axios");
+const HTMLParser = require("node-html-parser");
+const { scrapNewsAm, urlPicker } = require("@/helpers");
 
 export default function handler(req, res) {
   axios
-    .get(
-      `https://news.am/${req.query.lang}/news/allregions/allthemes/${req.query.year}/${req.query.month}/${req.query.day}/`
-    )
-    .then(({ data }) => {
-      res.status(200).send(data);
-    });
+    .get(urlPicker({ ...req.query, type: "newsAm" }))
+    .then(({ data }) => HTMLParser.parse(data))
+    .then((parsedData) => res.status(200).send(scrapNewsAm(parsedData)));
 }

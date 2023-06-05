@@ -1,0 +1,76 @@
+@font-face {
+  font-family: 'MontserratArm';
+  src: url('./Montserratarm-Medium.otf') format('opentype');
+}
+
+@font-face {
+  font-family: 'MontserratArm';
+  font-style: normal;
+  font-weight: 100;
+  font-display: swap;
+  src: url('./Montserratarm-Thin.otf') format('opentype');
+}
+
+@font-face {
+  font-family: 'MontserratArm';
+  font-style: normal;
+  font-weight: 200;
+  font-display: swap;
+  src: url('./Montserratarm-ExtraLight.otf') format('opentype');
+}
+
+@font-face {
+  font-family: 'MontserratArm';
+  font-style: normal;
+  font-weight: 300;
+  font-display: swap;
+  src: url('./Montserratarm-Light.otf') format('opentype');
+}
+
+@font-face {
+  font-family: 'MontserratArm';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url('./Montserratarm-Regular.otf') format('opentype');
+}
+
+@font-face {
+  font-family: 'MontserratArm';
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url('./Montserratarm-Medium.otf') format('opentype');
+}
+
+@font-face {
+  font-family: 'MontserratArm';
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: url('./Montserratarm-SemiBold.otf') format('opentype');
+}
+
+@font-face {
+  font-family: 'MontserratArm';
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url('./Montserratarm-Bold.otf') format('opentype');
+}
+
+@font-face {
+  font-family: 'MontserratArm';
+  font-style: normal;
+  font-weight: 800;
+  font-display: swap;
+  src: url('./Montserratarm-ExtraBold.otf') format('opentype');
+}
+
+@font-face {
+  font-family: 'MontserratArm';
+  font-style: normal;
+  font-weight: 900;
+  font-display: swap;
+  src: url('./Montserratarm-Black.otf') format('opentype');
+}

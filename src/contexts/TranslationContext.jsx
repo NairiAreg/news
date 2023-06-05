@@ -6,7 +6,6 @@ import React, {
   useState,
 } from "react";
 import { useTranslation as i18useTranslation } from "react-i18next";
-import translation from "i18next";
 import { useLocalStorage } from "../hooks";
 
 export const TranslationContext = createContext({
@@ -19,20 +18,21 @@ export const useTranslation = () => useContext(TranslationContext);
 
 export function TranslationProvider({ children }) {
   const { put, get } = useLocalStorage();
-  const localStorageLang = get("lang");
-  const [language, setLanguage] = useState(localStorageLang || "en");
-  const { t } = i18useTranslation();
+
+  const [language, setLanguage] = useState(null);
+  const { t, i18n } = i18useTranslation();
 
   useEffect(() => {
-    put("lang", language);
-    translation.changeLanguage(language);
-  }, [language]);
-
-  useEffect(() => {
-    if (localStorageLang) {
-      setLanguage(localStorageLang);
-    }
+    const localStorageLang = get("lang");
+    setLanguage(localStorageLang || "en");
   }, []);
+
+  useEffect(() => {
+    if (language) {
+      put("lang", language);
+      i18n.changeLanguage(language);
+    }
+  }, [language]);
 
   const languageProviderValue = useMemo(
     () => ({

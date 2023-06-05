@@ -1,3 +1,20 @@
 {
-  "Hello": "Բարև"
+  "Hello": "Բարև",
+  "language@en@short": "ԱՆ",
+  "language@en@shortFlag": "🇺🇸 ԱՆ",
+  "language@en@long": "Անգլերեն",
+  "language@en@longFlag": "🇺🇸 Անգլերեն",
+  "language@ru@short": "ՌՈՒ",
+  "language@ru@shortFlag": "🇷🇺 ՌՈՒ",
+  "language@ru@long": "Ռուսերեն",
+  "language@ru@longFlag": "🇷🇺 Ռուսերեն",
+  "language@hy@short": "ՀՅ",
+  "language@hy@shortFlag": "🇦🇲 ՀՅ",
+  "language@hy@long": "Հայերեն",
+  "language@hy@longFlag": "🇦🇲 Հայերեն",
+  "news": "Նորություններ",
+  "next": "Հաջորդ",
+  "previous": "Նախորդ",
+  "noData": "Ոչինչ չի գտնվել, փորձեք փոփոխել ֆիլտրերը",
+  "noPageTranslation": "Այս էջը թարգմանված չէ"
 }
