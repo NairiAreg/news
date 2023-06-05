@@ -1,6 +1,6 @@
 import { TranslationProvider } from "../contexts/TranslationContext";
 import Head from "next/head";
-import "./translate";
+import "@/helpers/translate";
 import ChakraProvider from "@/contexts/ChakraProvider";
 import "./styles.scss";
 
